@@ -11,28 +11,30 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', "PostsController@index");
-
-Route::get('/posts/create', "PostsController@create");
-
-Route::get('/posts/{post}', "PostsController@show");
-
-Route::post('/post', "PostsController@store");
-
-Route::get('/posts/{post}/edit', "PostsController@edit");
-
-Route::patch('/posts/{post}', "PostsController@update");
-
-Route::delete('/posts/{post}', "PostsController@destroy");
-
-
 /*
- * GET /posts
- * GET /posts/create
- * POST /posts
- * GET /posts/{id}/edit
- * PATCH /posts/{id}
- * GET /posts/{id}
- * DELETE /posts/{ID}
+ * GET /books
+ * GET /books/create
+ * POST /books
+ * GET /books/{id}/edit
+ * PATCH /books/{id}
+ * GET /books/{id}
+ * DELETE /books/{ID}
  */
+
+Route::get('/', "BooksController@index");
+
+Route::get('/books/create', "BooksController@create");
+
+Route::get('/books/{book}', "BooksController@show");
+
+Route::post('/book', "BooksController@store");
+
+Route::get('/books/{book}/edit', "BooksController@edit");
+
+Route::patch('/books/{book}', "BooksController@update");
+
+Route::delete('/books/{book}', "BooksController@destroy");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
