@@ -9,11 +9,21 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">Home</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="books/create">Add post</a>
+                <a class="nav-link" href="/books/create">Add book</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.forbes.com/sites/quickerbettertech/2019/06/17/best-history-books-of-all-time/#4c518f0840aa">Best History Books Of All Time</a>
+                <a class="nav-link" href="https://www.forbes.com/sites/quickerbettertech/2019/06/17/best-history-books-of-all-time/#4c518f0840aa" target="_blank">Best History Books Of All Time</a>
             </li>
         </ul>
+    </div>
+    <div class="col-md-3">
+        <form action="/search" method="get">
+            <div class="input-group">
+                <input type="search" name="search" class="form-control">
+                <span class="input-group-prepend">
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </span>
+            </div>
+        </form>
     </div>
 </nav>

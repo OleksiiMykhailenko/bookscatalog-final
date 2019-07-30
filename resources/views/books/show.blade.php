@@ -11,6 +11,12 @@
                 <p>{{$book->body}}</p>
             </div>
         </div>
+        <div>
+            @isset($path)
+                <img class="img-fluid" src="{{asset('/storage/' . $path)}}">
+            @endisset
+        </div>
     </div>
+
 
 @endsection

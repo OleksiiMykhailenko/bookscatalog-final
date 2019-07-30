@@ -39,6 +39,20 @@
             <button class="btn btn-dark" type="submit">Publish</button>
         </div>
 
+        <div class="container">
+            <h1>Add cover</h1>
+            <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
+            {{csrf_field()}}
+            <div class="form-group">
+                <input type="file" name="image">
+            </div>
+                <button class="btn btn-dark" type="submit">Upload</button>
+            </form>
+            @isset($path)
+                <img class="img-fluid" src="{{asset('/storage/' . $path)}}">
+            @endisset
+        </div>
+
     @include('layouts.error')
 
     </form>

@@ -263,7 +263,25 @@ Laravel увидит эту форму и сразу определит, что 
                     $book->update(request(array('title', 'alias', 'author', 'isbn', 'intro', 'body')));
                     return redirect('/');
                     }
-56.
+56. Удаление записей производим: В файле index.blade.php, добавим новую кнопку с формой:
+                    {{csrf_field()}}
+                    {!! method_field('delete') !!}
+                    <button type="submit" class="btn btn-outline-dark">Delete</button>
+57. В файле web.php добавляем маршрут к этой кнопке:
+                    Route::delete('/books/{book}', "BooksController@destroy");
+58. Реализовываем метод destroy в BooksController.php
+                    public function destroy(Book $book)
+                    {
+                        $book->delete();
+                        return redirect('/');
+                    }
+59. Делаем привязку по alias. В модели Book.php, добавляем следующий метод:
+                    public function getRouteKeyName()
+                    {
+                        return 'alias';
+                    }
+Теперь поиск будет по alias. в файле index.blade.php во всех полях указываем $book->alias;
+60.
 
 Доработать:
 1. Поиск по данным(автор, название, isbn);
