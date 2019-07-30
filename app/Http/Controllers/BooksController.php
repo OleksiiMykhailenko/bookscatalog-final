@@ -24,7 +24,15 @@ class BooksController extends Controller
         return view("books.create");
     }
 
-    public function store()
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $books = DB::table('books')->where('title', 'like', '%'.$search.'%');
+        dd($search);
+        return view('layouts.headerNavigator', ['books' => $books]);
+    }
+
+    public function store(Request $request)
     {
         $this->validate(request(), [
             'title' => 'required|min:2',

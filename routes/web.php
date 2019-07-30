@@ -23,6 +23,8 @@
 
 Route::get('/', "BooksController@index");
 
+Route::get('/search', "BooksController@search");
+
 Route::get('/books/create', "BooksController@create");
 
 Route::get('/books/{book}', "BooksController@show");
@@ -34,6 +36,8 @@ Route::get('/books/{book}/edit', "BooksController@edit");
 Route::patch('/books/{book}', "BooksController@update");
 
 Route::delete('/books/{book}', "BooksController@destroy");
+
+Route::post('/image/upload', "ImageController@upload")->name('image.upload');
 
 Auth::routes();
 
