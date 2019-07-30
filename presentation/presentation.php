@@ -281,9 +281,30 @@ Laravel увидит эту форму и сразу определит, что 
                         return 'alias';
                     }
 Теперь поиск будет по alias. в файле index.blade.php во всех полях указываем $book->alias;
-60.
+60. Добавим поиск по названию. Для этого создадим роут в web.php:
+                    Route::get('/search', "BooksController@search");
+61. Затем создаем соответствующий метод в BooksController.php:
+                    public function search(Request $request)
+                    {
+                        $search = $request->get('search');
+                        $books = DB::table('books')->where('title', 'like', '%'.$search.'%')->get();
+                        return view('books.show', ['books' => $books]);
+                    }
+62. И создадим представление, в файле books.show;
+63. Также в контроллере к методу store добавим добавление обложки при создании книги:
+                    $path = $request->file('image')->store('uploads', 'public');
+
+                    $storageLink = basename($path);
+                    $request = request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'));
+                    $request['cover'] = $storageLink;
+                    Book::create(
+                    $request
+                    );
+                    return redirect('/');
+64. И соответствующее представление в файле books.show;
 
 Доработать:
 1. Поиск по данным(автор, название, isbn);
-2. Добавить обложку(добавление при создании книги, редактирование при редактировании книги);
+2. Добавить обложку(редактирование при редактировании книги);
 3. Добавить коментарии к детальному просмотру книги(добавление, редактирование, удаление);
+4. Админка;
