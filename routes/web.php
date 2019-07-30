@@ -37,8 +37,6 @@ Route::patch('/books/{book}', "BooksController@update");
 
 Route::delete('/books/{book}', "BooksController@destroy");
 
-Route::post('/image/upload', "ImageController@upload")->name('image.upload');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

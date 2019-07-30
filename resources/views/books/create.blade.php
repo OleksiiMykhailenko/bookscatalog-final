@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
+
     <h2>Publish a books:</h2>
 
     <form action="/book" method="post" enctype="multipart/form-data">
@@ -35,8 +36,7 @@
             <textarea class="form-control" type="text" name="body" id="body"></textarea>
         </div>
 
-
-        <h1>Add cover</h1>
+        <h2>Add cover:</h2>
 
         <div class="form-group">
             <input type="file" name="image">
