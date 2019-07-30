@@ -27,9 +27,8 @@ class BooksController extends Controller
     public function search(Request $request)
     {
         $search = $request->get('search');
-        $books = DB::table('books')->where('title', 'like', '%'.$search.'%');
-        dd($search);
-        return view('layouts.headerNavigator', ['books' => $books]);
+        $books = DB::table('books')->where('title', 'like', '%'.$search.'%')->get();
+        return view('books.show', ['books' => $books]);
     }
 
     public function store(Request $request)
@@ -43,8 +42,13 @@ class BooksController extends Controller
             'body' => 'required',
             ]);
 
+        $path = $request->file('image')->store('uploads', 'public');
+
+        $storageLink = basename($path);
+        $request = request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'));
+        $request['cover'] = $storageLink;
         Book::create(
-            request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'))
+            $request
         );
         return redirect('/');
     }

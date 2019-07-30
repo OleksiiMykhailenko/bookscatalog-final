@@ -3,7 +3,7 @@
 @section('content')
     <h2>Publish a books:</h2>
 
-    <form action="/book" method="post">
+    <form action="/book" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">
          <label for="title">Title:</label>
@@ -35,22 +35,15 @@
             <textarea class="form-control" type="text" name="body" id="body"></textarea>
         </div>
 
+
+        <h1>Add cover</h1>
+
         <div class="form-group">
-            <button class="btn btn-dark" type="submit">Publish</button>
+            <input type="file" name="image">
         </div>
 
-        <div class="container">
-            <h1>Add cover</h1>
-            <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
-            {{csrf_field()}}
-            <div class="form-group">
-                <input type="file" name="image">
-            </div>
-                <button class="btn btn-dark" type="submit">Upload</button>
-            </form>
-            @isset($path)
-                <img class="img-fluid" src="{{asset('/storage/' . $path)}}">
-            @endisset
+        <div class="form-group">
+            <button class="btn btn-dark" type="submit">Publish</button>
         </div>
 
     @include('layouts.error')
