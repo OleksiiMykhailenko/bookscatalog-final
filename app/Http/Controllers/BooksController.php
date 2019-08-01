@@ -40,15 +40,15 @@ class BooksController extends Controller
             'isbn' => 'required|unique:books',
             'intro' => 'required',
             'body' => 'required',
+            'image' => 'required',
             ]);
 
+        $requestParams = request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'));
         $path = $request->file('image')->store('uploads', 'public');
-
         $storageLink = basename($path);
-        $request = request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'));
-        $request['cover'] = $storageLink;
+        $requestParams['cover'] = $storageLink;
         Book::create(
-            $request
+            $requestParams
         );
         return redirect('/');
     }
@@ -58,7 +58,7 @@ class BooksController extends Controller
         return view("books.edit", compact('book'));
     }
 
-    public function update(Book $book)
+    public function update(Book $book, Request $request)
     {
         $this->validate(request(), [
             'title' => 'required|min:2',
@@ -68,7 +68,11 @@ class BooksController extends Controller
             'intro' => 'required',
             'body' => 'required',
         ]);
-        $book->update(request(array('title', 'alias', 'author', 'isbn', 'intro', 'body')));
+        $requestParams = request(['title', 'alias', 'author', 'isbn', 'intro', 'body']);
+        $path = $request->file('image')->store('uploads', 'public');
+        $storageLink = basename($path);
+        $requestParams['cover'] = $storageLink;
+        $book->update($requestParams);
         return redirect('/');
     }
 

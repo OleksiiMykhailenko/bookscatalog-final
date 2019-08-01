@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 
 @section('content')
+
     <h2>Edit a book:</h2>
 
-    <form action="/books/{{$book->alias}}" method="post">
+    <form action="/books/{{$book->alias}}" method="post" enctype="multipart/form-data">
 
         {{csrf_field()}}
-        {!! method_field('patch') !!}
 
         <div class="form-group">
          <label for="title">Title:</label>
@@ -36,6 +36,12 @@
         <div class="form-group">
             <label for="body">Body:</label>
             <textarea class="form-control" type="text" name="body" id="body">{{$book->body}}</textarea>
+        </div>
+
+        <h2>Add cover:</h2>
+
+        <div class="form-group">
+            <input type="file" name="image">
         </div>
 
         <div class="form-group">

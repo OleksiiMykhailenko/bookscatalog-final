@@ -33,7 +33,7 @@ Route::post('/book', "BooksController@store");
 
 Route::get('/books/{book}/edit', "BooksController@edit");
 
-Route::patch('/books/{book}', "BooksController@update");
+Route::post('/books/{book}', "BooksController@update");
 
 Route::delete('/books/{book}', "BooksController@destroy");
 
