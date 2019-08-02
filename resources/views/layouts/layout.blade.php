@@ -16,7 +16,7 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h1>Hello, dear friend!</h1>
+        <h2>A book is a great thing as long as a person knows how to use it!</h2>
         <p>That our books catalog</p>
     </div>
 </div>

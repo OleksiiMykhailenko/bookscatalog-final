@@ -14,7 +14,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://www.forbes.com/sites/quickerbettertech/2019/06/17/best-history-books-of-all-time/#4c518f0840aa" target="_blank">Best History Books Of All Time</a>
             </li>
-            <li class="navItem">
+            <li class="nav-item">
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

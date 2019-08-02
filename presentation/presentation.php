@@ -302,9 +302,25 @@ Laravel увидит эту форму и сразу определит, что 
                     );
                     return redirect('/');
 64. И соответствующее представление в файле books.show;
+65. Для изменения книги в методе update в BooksController.php добавим:
+                    $requestParams = request(['title', 'alias', 'author', 'isbn', 'intro', 'body']);
+                    $path = $request->file('image')->store('uploads', 'public');
+                    $storageLink = basename($path);
+                    $requestParams['cover'] = $storageLink;
+                    $book->update($requestParams);
+                    return redirect('/');
+А в передаваемых параметрах:
+                    Book $book, Request $request
+66. И соответственно в edit.blade.php необходимо добавить:
+                    <h2>Add cover:</h2>
+                    <div class="form-group">
+                         <input type="file" name="image">
+                    </div>
+67. В файл headerNavigator.blade.php добавляем шаблоны для регистрации и авторизации;
+68. Соответственно во всех view связанных с регистрацией и авторизацией мы укажим:
+                    @extends('layouts.layout')
 
 Доработать:
-1. Поиск по данным(автор, название, isbn);
-2. Добавить обложку(редактирование при редактировании книги);
-3. Добавить коментарии к детальному просмотру книги(добавление, редактирование, удаление);
-4. Админка;
+1. Добавить коментарии к детальному просмотру книги(добавление, редактирование, удаление);
+2. Управление по ролям(вошедший или зарегистрированный может делать все, не вошедший и не зарегестрированный,
+только просматривать).
