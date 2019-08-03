@@ -28,6 +28,7 @@ class BooksController extends Controller
     {
         $search = $request->get('search');
         $books = DB::table('books')->where('title', 'like', '%'.$search.'%')->get();
+        //$books = Book::where('title', 'like', "%$search%")->get();
         return view('books.show', ['books' => $books]);
     }
 
@@ -43,6 +44,7 @@ class BooksController extends Controller
             'image' => 'required',
             ]);
 
+        // вместо array() писать [] ибо PSR2
         $requestParams = request(array('title', 'alias', 'author', 'isbn', 'intro', 'body'));
         $path = $request->file('image')->store('uploads', 'public');
         $storageLink = basename($path);
