@@ -40,3 +40,5 @@ Route::delete('/books/{book}', "BooksController@destroy");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', ['as' => 'home', 'middleware' => 'role:admin', 'uses' => 'BooksController@index']);
