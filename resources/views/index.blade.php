@@ -15,7 +15,9 @@
                 <form action="/books/{{$book->alias}}" method ="post">
                     {{csrf_field()}}
                     {!! method_field('delete') !!}
-                    <button type="submit" class="btn btn-outline-dark">Delete</button>
+                    @if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                        <button type="submit" class="btn btn-outline-dark">Delete</button>
+                    @endif
                 </form>
             </div>
 
