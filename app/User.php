@@ -33,6 +33,19 @@ class User extends Authenticatable
      */
     public function hasRole($check)
     {
+        if ($check = '*') {
+            return true;
+        }
         return $this->roles->contains('name', $check);
+    }
+
+    public function canEdit()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function canView()
+    {
+        return $this->hasRole('*');
     }
 }
