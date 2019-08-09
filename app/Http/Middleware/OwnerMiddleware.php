@@ -17,7 +17,7 @@ class OwnerMiddleware
     public function handle($request, Closure $next, $role)
     {
         if (!$request->user()->hasRole($role)) {
-            return redirect('/'); // редирект куда угодно
+            return redirect('/');
         }
         return $next($request);
     }

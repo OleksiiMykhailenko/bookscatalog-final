@@ -9,7 +9,12 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">Home</span></a>
             </li>
             <li class="nav-item">
+                @guest
+                @else
+                @if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
                 <a class="nav-link" href="/books/create">Add book</a>
+                @endif
+                @endauth
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://www.forbes.com/sites/quickerbettertech/2019/06/17/best-history-books-of-all-time/#4c518f0840aa" target="_blank">Best History Books Of All Time</a>

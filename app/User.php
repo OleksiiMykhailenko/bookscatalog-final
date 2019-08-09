@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -33,19 +34,6 @@ class User extends Authenticatable
      */
     public function hasRole($check)
     {
-        if ($check = '*') {
-            return true;
-        }
         return $this->roles->contains('name', $check);
-    }
-
-    public function canEdit()
-    {
-        return $this->hasRole('admin');
-    }
-
-    public function canView()
-    {
-        return $this->hasRole('*');
     }
 }

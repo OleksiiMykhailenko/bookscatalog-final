@@ -319,8 +319,65 @@ Laravel увидит эту форму и сразу определит, что 
 67. В файл headerNavigator.blade.php добавляем шаблоны для регистрации и авторизации;
 68. Соответственно во всех view связанных с регистрацией и авторизацией мы укажим:
                     @extends('layouts.layout')
+69. Для правильного отображения фотограций на странице детального просмотра, необходимо выполнить команду:
+                    php artisan storage:link
+70. Распределение ролей. Пропишем в новосозданной модели User.php функции для получения названия роли к которой
+пользователь принадлежит:
+                    protected $fillable = [
+                    'name',
+                    'email',
+                    'password'
+                    ];
 
-Доработать:
-1. Добавить коментарии к детальному просмотру книги(добавление, редактирование, удаление);
-2. Управление по ролям(вошедший или зарегистрированный может делать все, не вошедший и не зарегестрированный,
-только просматривать).
+                    public function roles()
+                    {
+                        return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id');
+                    }
+71. Далее проверка имеет ли пользователь определенную роль:
+                    public function hasRole($check)
+                    {
+                        if ($check = '*') {
+                        return true;
+                    }
+                        return $this->roles->contains('name', $check);
+                    }
+Мы возвращаем к колекции ролей, связанной с пользователем, метод contains проверяет есть ли в колеции roles ключ с именем
+name со значением $check
+72. Далее пропишем такие методы как возможность редактирования и удаления:
+                    public function canEdit()
+                    {
+                        return $this->hasRole('admin');
+                    }
+
+                    public function canView()
+                    {
+                        return $this->hasRole('*');
+                    }
+Как видно, просматривать могут все пользователи, редактировать удалять книги только админ
+73. Соответственно в файле index.blade.php мы в форме в необходимом нам поле указываем:
+                    @if (\Illuminate\Support\Facades\Auth::user()->canVIew())
+                    @endif
+Либо:
+                    @if (\Illuminate\Support\Facades\Auth::user()->canEdit())
+                    @endif
+А также в файле headerNavigator.blade.php укажем, что добавлять новую книгу может только admin:
+                    @if (\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                    <a class="nav-link" href="/books/create">Add book</a>
+                    @endif
+74. Также заключаем эти куски кода в:
+                    @guest
+                    guest stuff here
+                    @else
+                    logged user stuff here
+                    @endauth
+Для того, чтобы выводило необходимый контент незарегестрированному пользователю
+75. Для того, чтобы все это работало, регистрируемся, указываем в базе данных в таблице roles
+                    id - 1
+                    name - admin
+что соответствует id полю нашего зарегестрированного пользователя в папке users, так как таблицы связаны
+76. Для проверки работоспособности изменяем строку в моделе User.php:
+                    return !$this->roles->contains('name', $check);
+77. Если возникли проблемы с тем, когда разлогинился, что не можешь войти в систему обратно, под тем же
+мейлом и паролем, то необходимо почистить кеш:
+                    php artisan view:cache
+                    php artisan cache:clear
